@@ -13,6 +13,10 @@ require 'openssl'
  Braintree::Configuration.public_key = 'xktj76v3mb4nt7wx'
  Braintree::Configuration.private_key = '2632842e6df4fff163c877944980da46'
 
+get "/" do 
+  erb :index
+end
+
 
 post "/ios_checkout" do
 p params
