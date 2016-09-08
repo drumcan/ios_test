@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <script src="https://js.braintreegateway.com/web/3.0.2/js/client.min.js"></script>
+     <script src="https://js.braintreegateway.com/web/3.0.2/js/apple-pay.min.js"></script>
+     <script src="https://js.braintreegateway.com/web/3.0.2/js//hosted-fields.min.js"></script>
+   </head>
+   <script>
+  if (window.ApplePaySession) {
+  if (ApplePaySession.canMakePayments()) {
+    // Set up Apple Pay buttons
+    var btn = document.createElement("BUTTON");
+    var t = document.createTextNode("CLICK ME");       // Create a text node
+    btn.appendChild(t);
+  }
+}
+  </script>
+
+   <form id="checkout-form" action="/ios_checkout" method="post">
+     <div id="error-message"></div>
+
+
+     <input type="hidden" name="payment_method_nonce">
+
+     <input type="submit" value="Pay" disabled>
+   </form>
+
+<style>
+</style>
+
+<script>
+var form = document.querySelector('#checkout-form');
+var errorMessage = document.querySelector('#error-message');
+var cvvLabel = document.querySelector('label[for="cvv"]');
+var nonce = document.querySelector('input[name="payment_method_nonce"]');
+var submitButton = document.querySelector('input[type="submit"]');
+var paypalButton = document.querySelector('#paypal-button');
+
+// Create a Client.
+braintree.client.create({
+ authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+}, function (err, client) {
+
+ // Stop if there was a problem creating the Client.
+ // This could happen if there is a network error or if the authorization
+ // is invalid.
+ if (err) {
+   console.error('Error creating client:', err);
+   return;
+ }
+
+ braintree.applePay.create({
+   client: client
+ }, function (applePayErr, applePayInstance) {
+   if (applePayErr) {
+     console.error('Error creating applePayInstance:', applePayErr);
+     return;
+   }
+
+   // Show the Apple Pay button
+ });
+
+});
+</script>
+</html>

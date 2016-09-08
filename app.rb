@@ -13,10 +13,13 @@ require 'openssl'
  Braintree::Configuration.public_key = 'xktj76v3mb4nt7wx'
  Braintree::Configuration.private_key = '2632842e6df4fff163c877944980da46'
 
-get "/" do 
+get "/" do
   erb :index
 end
 
+get "/apple_pay" do
+  erb :apple_pay
+end
 
 post "/ios_checkout" do
 p params
@@ -25,7 +28,7 @@ result = Braintree::Transaction.sale(
   :payment_method_nonce => params[:payment_method_nonce],
   :options => {
   	:submit_for_settlement => true,
-    
+
   }
 )
 
