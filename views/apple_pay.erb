@@ -5,72 +5,15 @@
      <script src="https://js.braintreegateway.com/web/3.0.2/js/apple-pay.min.js"></script>
      <script src="https://js.braintreegateway.com/web/3.0.2/js//hosted-fields.min.js"></script>
    </head>
-   <script>
-  if (window.ApplePaySession) {
-  if (ApplePaySession.canMakePayments()) {
 
-    braintree.client.create({
-      authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
-    }, function (err, client) {
-
-     // Stop if there was a problem creating the Client.
-     // This could happen if there is a network error or if the authorization
-     // is invalid.
-     if (err) {
-       console.error('Error creating client:', err);
-       return;
-     }
-
-     braintree.applePay.create({
-       client: client
-     }, function (applePayErr, applePayInstance) {
-       if (applePayErr) {
-         console.error('Error creating applePayInstance:', applePayErr);
-         return;
-       }
-
-       var btn = document.createElement("BUTTON");
-       btn.type = "button";
-       btn.valule = "my button";
-       var placeHolder = document.getElementBtId("button");
-       placeHolder.appendChild(myButton);
-
-            // Create a text node
-
-
-       var paymentRequest = applePayInstance.createPaymentRequest({
-        total: {
-        label: 'My Store',
-        amount: '19.99'
-       }
-     });
-     console.log(paymentRequest.countryCode);
-     console.log(paymentRequest.currencyCode);
-     console.log(paymentRequest.merchantCapabilities);
-     console.log(paymentRequest.supportedNetworks);
-
-     var session = new ApplePaySession(1, paymentRequest);
-
-     });
-
-    });
-  }
-}
-
-btn.onclick
-  </script>
-
+<body>
    <form id="checkout-form" action="/ios_checkout" method="post">
      <div id="error-message"></div>
-     <div class="apple-pay-button apple-pay-button-white"></div>
      <div id="button"></div>
-
-
      <input type="hidden" name="payment_method_nonce">
-
      <input type="submit" value="Pay" disabled>
    </form>
-
+</body>
 <style>
 .apple-pay-button {
     display: inline-block;
@@ -103,6 +46,7 @@ btn.onclick
 </style>
 
 <script>
+
 var form = document.querySelector('#checkout-form');
 var errorMessage = document.querySelector('#error-message');
 var cvvLabel = document.querySelector('label[for="cvv"]');
@@ -110,7 +54,52 @@ var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 
 
-// Create a Client.
+if (window.ApplePaySession) {
+if (ApplePaySession.canMakePayments()) {
 
+ braintree.client.create({
+   authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+ }, function (err, client) {
+
+  // Stop if there was a problem creating the Client.
+  // This could happen if there is a network error or if the authorization
+  // is invalid.
+  if (err) {
+    console.error('Error creating client:', err);
+    return;
+  }
+
+  braintree.applePay.create({
+    client: client
+  }, function (applePayErr, applePayInstance) {
+    if (applePayErr) {
+      console.error('Error creating applePayInstance:', applePayErr);
+      return;
+    }
+
+    var btn = document.createElement("BUTTON");
+    btn.type = "button";
+    btn.value = "my button";
+    var placeHolder = document.getElementBtId("button");
+    placeHolder.appendChild(myButton);
+
+    var paymentRequest = applePayInstance.createPaymentRequest({
+     total: {
+     label: 'My Store',
+     amount: '19.99'
+    }
+  });
+  console.log(paymentRequest.countryCode);
+  console.log(paymentRequest.currencyCode);
+  console.log(paymentRequest.merchantCapabilities);
+  console.log(paymentRequest.supportedNetworks);
+
+  var session = new ApplePaySession(1, paymentRequest);
+
+  });
+
+ });
+}
+}
 </script>
 </html>
