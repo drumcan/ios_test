@@ -86,20 +86,55 @@ alert("can make payments");
     var placeHolder = document.getElementById("button");
     placeHolder.appendChild(btn);
 
-    var paymentRequest = applePayInstance.createPaymentRequest({
-     total: {
-     label: 'My Store',
-     amount: '19.99'
+
+    });
+  }
+  }
+});
+
+var paymentRequest = applePayInstance.createPaymentRequest({
+ total: {
+ label: 'My Store',
+ amount: '19.99'
+ }
+});
+console.log(paymentRequest.countryCode);
+console.log(paymentRequest.currencyCode);
+console.log(paymentRequest.merchantCapabilities);
+console.log(paymentRequest.supportedNetworks);
+
+var session = new ApplePaySession(1, paymentRequest);
+
+session.onvalidatemerchant = function (event) {
+  applePayInstance.performValidation({
+    validationURL: event.validationURL,
+    displayName: 'My Store'
+  }, function (validationErr, merchantSession) {
+    if (validationErr) {
+      // You should show an error to the user, e.g. 'Apple Pay failed to load.'
+      console.error('Error validating merchant:', validationErr);
+      session.abort();
+      return;
     }
+    session.completeMerchantValidation(merchantSession);
   });
-  console.log(paymentRequest.countryCode);
-  console.log(paymentRequest.currencyCode);
-  console.log(paymentRequest.merchantCapabilities);
-  console.log(paymentRequest.supportedNetworks);
+}
 
-  var session = new ApplePaySession(1, paymentRequest);
+session.onpaymentauthorized = function (event) {
+  applePayInstance.tokenize({
+    token: event.payment.token
+  }, function (tokenizeErr, payload) {
+    if (tokenizeErr) {
+      console.error('Error tokenizing Apple Pay:', tokenizeErr);
+      session.completePayment(ApplePaySession.STATUS_FAILURE);
+      return;
+    }
+    session.completePayment(ApplePaySession.STATUS_SUCCESS);
+
+    // Send payload.nonce to your server.
   });
-}}});
+}
 
+btn.onclick=session.begin();
 </script>
 </html>
