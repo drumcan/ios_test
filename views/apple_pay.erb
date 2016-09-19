@@ -53,22 +53,25 @@ var cvvLabel = document.querySelector('label[for="cvv"]');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 
+alert("js starts here");
+braintree.client.create({
+  authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+}, function (err, client) {
+
+ // Stop if there was a problem creating the Client.
+ // This could happen if there is a network error or if the authorization
+ // is invalid.
+ if (err) {
+   console.error('Error creating client:', err);
+   return;
+ }
+
+ alert("no error setting up client");
 
 if (window.ApplePaySession) {
 if (ApplePaySession.canMakePayments()) {
 
- braintree.client.create({
-   authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
- }, function (err, client) {
-
-  // Stop if there was a problem creating the Client.
-  // This could happen if there is a network error or if the authorization
-  // is invalid.
-  if (err) {
-    console.error('Error creating client:', err);
-    return;
-  }
-
+alert("can make payments");
   braintree.applePay.create({
     client: client
   }, function (applePayErr, applePayInstance) {
@@ -76,7 +79,7 @@ if (ApplePaySession.canMakePayments()) {
       console.error('Error creating applePayInstance:', applePayErr);
       return;
     }
-
+    alert("time to setup up the button");
     var btn = document.createElement("BUTTON");
     btn.type = "button";
     btn.value = "my button";
@@ -95,9 +98,7 @@ if (ApplePaySession.canMakePayments()) {
   console.log(paymentRequest.supportedNetworks);
 
   var session = new ApplePaySession(1, paymentRequest);
-
   });
-
  });
 }
 }
