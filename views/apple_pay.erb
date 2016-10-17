@@ -115,6 +115,37 @@ braintree.client.create({
  });
 });
 
+session.onvalidatemerchant = function (event) {
+  applePayInstance.performValidation({
+    validationURL: event.validationURL,
+    displayName: 'My Store'
+  }, function (validationErr, merchantSession) {
+    if (validationErr) {
+      // You should show an error to the user, e.g. 'Apple Pay failed to load.'
+      console.error('Error validating merchant:', validationErr);
+      session.abort();
+      return;
+    }
+    session.completeMerchantValidation(merchantSession);
+  });
+};
+
+ession.onpaymentauthorized = function (event) {
+  console.log('Your shipping address is:', event.payment.shippingContact);
+
+  applePayInstance.tokenize({
+    token: event.payment.token
+  }, function (tokenizeErr, payload) {
+    if (tokenizeErr) {
+      console.error('Error tokenizing Apple Pay:', tokenizeErr);
+      session.completePayment(ApplePaySession.STATUS_FAILURE);
+      return;
+    }
+    session.completePayment(ApplePaySession.STATUS_SUCCESS);
+
+    // Send payload.nonce to your server.
+  });
+};
 
 </script>
 </html>
