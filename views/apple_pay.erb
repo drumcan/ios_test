@@ -15,7 +15,7 @@
   <div class="container">
     <form class="form-signin" id="checkout-form" action="/ios_checkout" method="post">
       <h2 class="form-signin-heading">Apple Pay for Web</h2>
-      <div class="apple-pay-button apple-pay-button-white" id="button"></div>
+      <div class="apple-pay-button apple-pay-button-white" style="display: none;" id="button"></div>
       <input type="hidden" name="payment_method_nonce">
       <input type="submit" value="Pay" disabled>
     </form>
@@ -59,65 +59,71 @@ var errorMessage = document.querySelector('#error-message');
 var cvvLabel = document.querySelector('label[for="cvv"]');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
+var button = document.querySelector('button');
 
 alert("js starts here");
 
 if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
   alert("this device supports applePay");
+  braintree.client.create({
+    authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+  }, function (err, client) {
+
+   if (err) {
+     console.error('Error creating client:', err);
+     return;
+   }
+   alert("no error setting up client");
+
+    braintree.applePay.create({
+      client: client
+    }, function (applePayErr, applePayInstance) {
+      if (applePayErr) {
+        console.error('Error creating applePayInstance:', applePayErr);
+        return;
+      }
+      alert("time to setup up the button");
+      });
+    });
+
+
+    var paymentRequest = applePayInstance.createPaymentRequest({
+     total: {
+     label: 'My Store',
+     amount: '19.99'
+     }
+    });
+    console.log(paymentRequest.countryCode);
+    console.log(paymentRequest.currencyCode);
+    console.log(paymentRequest.merchantCapabilities);
+    console.log(paymentRequest.supportedNetworks);
+
+    var session = new ApplePaySession(1, paymentRequest);
+
+
+  session.onvalidatemerchant = function (event) {
+    applePayInstance.performValidation({
+      validationURL: event.validationURL,
+      displayName: 'My Store'
+    }, function (validationErr, merchantSession) {
+      if (validationErr) {
+        // You should show an error to the user, e.g. 'Apple Pay failed to load.'
+        console.error('Error validating merchant:', validationErr);
+        session.abort();
+        return;
+      }
+      session.completeMerchantValidation(merchantSession);
+    });
+  };
+
+  document.getElementById("button").style.display="normal";
+
+  button.onclick=session.begin();
 } else {
   alert("applePay not working");
 }
 
-braintree.client.create({
-  authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
-}, function (err, client) {
 
- if (err) {
-   console.error('Error creating client:', err);
-   return;
- }
- alert("no error setting up client");
-
-  braintree.applePay.create({
-    client: client
-  }, function (applePayErr, applePayInstance) {
-    if (applePayErr) {
-      console.error('Error creating applePayInstance:', applePayErr);
-      return;
-    }
-    alert("time to setup up the button");
-    });
-  });
-
-
-  var paymentRequest = applePayInstance.createPaymentRequest({
-   total: {
-   label: 'My Store',
-   amount: '19.99'
-   }
-  });
-  console.log(paymentRequest.countryCode);
-  console.log(paymentRequest.currencyCode);
-  console.log(paymentRequest.merchantCapabilities);
-  console.log(paymentRequest.supportedNetworks);
-
-  var session = new ApplePaySession(1, paymentRequest);
-
-
-session.onvalidatemerchant = function (event) {
-  applePayInstance.performValidation({
-    validationURL: event.validationURL,
-    displayName: 'My Store'
-  }, function (validationErr, merchantSession) {
-    if (validationErr) {
-      // You should show an error to the user, e.g. 'Apple Pay failed to load.'
-      console.error('Error validating merchant:', validationErr);
-      session.abort();
-      return;
-    }
-    session.completeMerchantValidation(merchantSession);
-  });
-};
 
 session.onpaymentauthorized = function (event) {
   applePayInstance.tokenize({
@@ -134,6 +140,6 @@ session.onpaymentauthorized = function (event) {
   });
 };
 
-btn.onclick=session.begin();
+
 </script>
 </html>
