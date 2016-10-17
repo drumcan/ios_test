@@ -17,7 +17,6 @@
       <h2 class="form-signin-heading">Apple Pay for Web</h2>
       <button class="apple-pay-button apple-pay-button-white" style="display:none;" id="button"></button>
       <input type="hidden" name="payment_method_nonce">
-      <input type="submit" value="Pay" disabled>
     </form>
   <div>
 </body>
@@ -135,18 +134,20 @@ braintree.client.create({
             return;
           }
           session.completePayment(ApplePaySession.STATUS_SUCCESS);
-
+          alert("got a nonce");
           // Send payload.nonce to your server.
-          documnet.getElementById("checkout-form").submit();
+          document.getElementById("checkout-form").submit();
         });
       };
 
       button.addEventListener('click', function (event) {
-  event.preventDefault();
+        event.preventDefault();
 
-  session.begin();
+        session.begin();
        });
+
       }
+
     });
   });
 });
