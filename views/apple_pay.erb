@@ -15,7 +15,7 @@
   <div class="container">
     <form class="form-signin" id="checkout-form" action="/ios_checkout" method="post">
       <h2 class="form-signin-heading">Apple Pay for Web</h2>
-      <div class="apple-pay-button apple-pay-button-white" style="display: none;" id="button"></div>
+      <div class="apple-pay-button apple-pay-button-white" style="display:none;" id="button"></div>
       <input type="hidden" name="payment_method_nonce">
       <input type="submit" value="Pay" disabled>
     </form>
@@ -93,12 +93,8 @@ braintree.client.create({
     // Braintree provides a special merchant ID which represents the merchant association with Braintree.
     // Use this merchant ID to check if payments can be made.
 
-    var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
-   promise.then(function (canMakePaymentsWithActiveCard) {
-     if (canMakePaymentsWithActiveCard) {
-      document.getElementById("button").style.display="normal";
-    } else { alert("no applePay cards");}
-   });
+      document.getElementById("button").style.display = "block";
+
  });
 });
 
