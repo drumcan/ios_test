@@ -83,9 +83,6 @@ braintree.client.create({
       console.error('Error creating applePayInstance:', applePayErr);
       return;
     }
-
-
-
     // Alternatively, check if the device has an active Apple Pay card available.
     // You can do this if your checkout flow defaults to Apple Pay as a payment method
     // or if you are displaying Apple Pay buttons on a product detail page.
@@ -97,6 +94,7 @@ braintree.client.create({
       if (canMakePaymentsWithActiveCard) {
 
       document.getElementById("button").style.display = "block";
+
       var paymentRequest = applePayInstance.createPaymentRequest({
         total: {
           label: 'My Store',
@@ -143,10 +141,13 @@ braintree.client.create({
         });
       };
 
-      button.onclick=session.begin();
+      button.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      session.begin();
       }
     });
- });
+  });
 });
 
 </script>
