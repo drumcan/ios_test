@@ -97,7 +97,7 @@ braintree.client.create({
    promise.then(function (canMakePaymentsWithActiveCard) {
      if (canMakePaymentsWithActiveCard) {
       document.getElementById("button").style.display="normal";
-     }
+    } else { alert("no applePay cards");}
    });
  });
 });
