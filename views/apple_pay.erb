@@ -94,22 +94,23 @@ braintree.client.create({
     // Use this merchant ID to check if payments can be made.
 
       document.getElementById("button").style.display = "block";
+      var paymentRequest = applePayInstance.createPaymentRequest({
+        total: {
+          label: 'My Store',
+          amount: '19.99'
+        }
+      });
+      console.log(paymentRequest.countryCode);
+      console.log(paymentRequest.currencyCode);
+      console.log(paymentRequest.merchantCapabilities);
+      console.log(paymentRequest.supportedNetworks);
+
+      var session = new ApplePaySession(1, paymentRequest);
+
 
  });
 });
 
-var paymentRequest = applePayInstance.createPaymentRequest({
-  total: {
-    label: 'My Store',
-    amount: '19.99'
-  }
-});
-console.log(paymentRequest.countryCode);
-console.log(paymentRequest.currencyCode);
-console.log(paymentRequest.merchantCapabilities);
-console.log(paymentRequest.supportedNetworks);
-
-var session = new ApplePaySession(1, paymentRequest);
 
 </script>
 </html>
