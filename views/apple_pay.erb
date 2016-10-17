@@ -139,6 +139,7 @@ braintree.client.create({
           session.completePayment(ApplePaySession.STATUS_SUCCESS);
 
           // Send payload.nonce to your server.
+          documnet.getElementById("checkout-form").submit();
         });
       };
 
