@@ -64,7 +64,9 @@ alert("js starts here");
 
 if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
   alert("this device supports applePay");
-} else alert("applePay not working");
+} else {
+  alert("applePay not working");
+}
 
 braintree.client.create({
   authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
