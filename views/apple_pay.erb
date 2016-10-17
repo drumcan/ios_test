@@ -110,7 +110,7 @@ braintree.client.create({
 
       var session = new ApplePaySession(1, paymentRequest);
 
-      ession.onvalidatemerchant = function (event) {
+      session.onvalidatemerchant = function (event) {
         applePayInstance.performValidation({
           validationURL: event.validationURL,
           displayName: 'My Store'
