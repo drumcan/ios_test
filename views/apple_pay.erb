@@ -106,6 +106,7 @@ braintree.client.create({
       console.log(paymentRequest.supportedNetworks);
 
       var session = new ApplePaySession(1, paymentRequest);
+      button.onclick=session.begin();
 
 
  });
