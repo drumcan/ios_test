@@ -98,5 +98,18 @@ braintree.client.create({
  });
 });
 
+var paymentRequest = applePayInstance.createPaymentRequest({
+  total: {
+    label: 'My Store',
+    amount: '19.99'
+  }
+});
+console.log(paymentRequest.countryCode);
+console.log(paymentRequest.currencyCode);
+console.log(paymentRequest.merchantCapabilities);
+console.log(paymentRequest.supportedNetworks);
+
+var session = new ApplePaySession(1, paymentRequest);
+
 </script>
 </html>
