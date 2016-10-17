@@ -92,6 +92,9 @@ braintree.client.create({
 
     // Braintree provides a special merchant ID which represents the merchant association with Braintree.
     // Use this merchant ID to check if payments can be made.
+    var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
+    promise.then(function (canMakePaymentsWithActiveCard) {
+      if (canMakePaymentsWithActiveCard) {
 
       document.getElementById("button").style.display = "block";
       var paymentRequest = applePayInstance.createPaymentRequest({
@@ -107,8 +110,8 @@ braintree.client.create({
 
       var session = new ApplePaySession(1, paymentRequest);
       button.onclick=session.begin();
-
-
+      }
+    });
  });
 });
 
