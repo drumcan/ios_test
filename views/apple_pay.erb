@@ -56,92 +56,51 @@
 
 var form = document.querySelector('#checkout-form');
 var errorMessage = document.querySelector('#error-message');
-var cvvLabel = document.querySelector('label[for="cvv"]');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
 
-alert("js starts here");
-
-if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
-  alert("this device supports applePay");
-  braintree.client.create({
-    authorization: "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
-  }, function (err, client) {
-
-   if (err) {
-     console.error('Error creating client:', err);
-     return;
-   }
-   alert("no error setting up client");
-
-    braintree.applePay.create({
-      client: client
-    }, function (applePayErr, applePayInstance) {
-      if (applePayErr) {
-        console.error('Error creating applePayInstance:', applePayErr);
-        return;
-      }
-      alert("time to setup up the button");
-
-      var paymentRequest = applePayInstance.createPaymentRequest({
-       total: {
-       label: 'My Store',
-       amount: '19.99'
-       }
-      });
-      console.log(paymentRequest.countryCode);
-      console.log(paymentRequest.currencyCode);
-      console.log(paymentRequest.merchantCapabilities);
-      console.log(paymentRequest.supportedNetworks);
-
-      var session = new ApplePaySession(1, paymentRequest);
-
-
-    session.onvalidatemerchant = function (event) {
-      applePayInstance.performValidation({
-        validationURL: event.validationURL,
-        displayName: 'My Store'
-      }, function (validationErr, merchantSession) {
-        if (validationErr) {
-          // You should show an error to the user, e.g. 'Apple Pay failed to load.'
-          console.error('Error validating merchant:', validationErr);
-          session.abort();
-          return;
-        }
-        session.completeMerchantValidation(merchantSession);
-      });
-    };
-
-    document.getElementById("button").style.display="normal";
-
-    button.onclick=session.begin();
-      });
-    });
-
-
-
-} else {
-  alert("applePay not working");
+if (!window.ApplePaySession) {
+  console.error('This device does not support Apple Pay');
 }
 
+if (!ApplePaySession.canMakePayments()) {
+  console.error('This device is not capable of making Apple Pay payments');
+}
 
+braintree.client.create({
+  authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+}, function (clientErr, clientInstance) {
+  if (clientErr) {
+    console.error('Error creating client:', clientErr);
+    return;
+  }
 
-session.onpaymentauthorized = function (event) {
-  applePayInstance.tokenize({
-    token: event.payment.token
-  }, function (tokenizeErr, payload) {
-    if (tokenizeErr) {
-      console.error('Error tokenizing Apple Pay:', tokenizeErr);
-      session.completePayment(ApplePaySession.STATUS_FAILURE);
+  braintree.applePay.create({
+    client: clientInstance
+  }, function (applePayErr, applePayInstance) {
+    if (applePayErr) {
+      console.error('Error creating applePayInstance:', applePayErr);
       return;
     }
-    session.completePayment(ApplePaySession.STATUS_SUCCESS);
 
-    // Send payload.nonce to your server.
-  });
-};
 
+
+    // Alternatively, check if the device has an active Apple Pay card available.
+    // You can do this if your checkout flow defaults to Apple Pay as a payment method
+    // or if you are displaying Apple Pay buttons on a product detail page.
+
+    // Braintree provides a special merchant ID which represents the merchant association with Braintree.
+    // Use this merchant ID to check if payments can be made.
+
+    var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
+   promise.then(function (canMakePaymentsWithActiveCard) {
+     if (canMakePaymentsWithActiveCard) {
+      document.getElementById("button").style.display="normal";
+     }
+   });
+ });
+});
 
 </script>
 </html>
