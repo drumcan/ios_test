@@ -58,8 +58,7 @@ var errorMessage = document.querySelector('#error-message');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
-var applePay;
-
+var applePay
 
 if (!window.ApplePaySession) {
   console.error('This device does not support Apple Pay');
@@ -91,10 +90,10 @@ braintree.client.create({
 });
 console.log(applePay);
 
-var promise = applePay.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
+var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePay.merchantIdentifier);
 promise.then(function (canMakePaymentsWithActiveCard) {
   if (canMakePaymentsWithActiveCard) {
-  var paymentRequest = applePayInstance.createPaymentRequest({
+  var paymentRequest = applePay.createPaymentRequest({
     total: {
       label: 'My Store',
       amount: '19.99'
@@ -112,7 +111,7 @@ button.addEventListener('click', function (event) {
       var session = new ApplePaySession(1, paymentRequest);
 
       session.onvalidatemerchant = function (event) {
-        applePayInstance.performValidation({
+        applePay.performValidation({
           validationURL: event.validationURL,
           displayName: 'My Store'
         }, function (validationErr, merchantSession) {
@@ -129,7 +128,7 @@ button.addEventListener('click', function (event) {
       session.onpaymentauthorized = function (event) {
         console.log('Your shipping address is:', event.payment.shippingContact);
 
-        applePayInstance.tokenize({
+        applePay.tokenize({
           token: event.payment.token
         }, function (tokenizeErr, payload) {
           if (tokenizeErr) {
