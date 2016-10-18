@@ -22,7 +22,7 @@ get "/apple_pay" do
 end
 
 get "/.well-known/apple-developer-merchantid-domain-association" do
-  send_file File.join(settings.public_folder, 'apple-developer-merchantid-domain-association')
+  send_file "apple-developer-merchantid-domain-association"
 end
 
 post "/ios_checkout" do
