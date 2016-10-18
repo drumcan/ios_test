@@ -21,6 +21,10 @@ get "/apple_pay" do
   erb :apple_pay
 end
 
+get "/apple_pay2" do
+  erb :apple_pay2
+end
+
 post "/ios_checkout" do
 p params
 result = Braintree::Transaction.sale(
