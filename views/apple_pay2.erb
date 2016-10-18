@@ -83,9 +83,9 @@ braintree.client.create({
     if (applePayErr) {
       console.error('Error creating applePayInstance:', applePayErr);
       return;
-    } else { applePay = applePayInstance;
-             console.log(applePayIntance);
-             return;}
+    }
+    applePay = applePayInstance;
+    console.log(applePayIntance);
   });
 });
 console.log(applePay);
