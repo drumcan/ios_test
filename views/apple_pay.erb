@@ -86,18 +86,10 @@ braintree.client.create({
       console.error('Error creating applePayInstance:', applePayErr);
       return;
     }
-    // Alternatively, check if the device has an active Apple Pay card available.
-    // You can do this if your checkout flow defaults to Apple Pay as a payment method
-    // or if you are displaying Apple Pay buttons on a product detail page.
 
-    // Braintree provides a special merchant ID which represents the merchant association with Braintree.
-    // Use this merchant ID to check if payments can be made.
     var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
     promise.then(function (canMakePaymentsWithActiveCard) {
       if (canMakePaymentsWithActiveCard) {
-
-
-
       var paymentRequest = applePayInstance.createPaymentRequest({
         total: {
           label: 'My Store',
@@ -144,16 +136,11 @@ braintree.client.create({
         });
       };
 
-
-
-        session.begin();
-
-
-      }
-
+        }
+      });
     });
   });
-});
+  session.begin();
 });
 
 </script>
