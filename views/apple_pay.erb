@@ -135,12 +135,11 @@ braintree.client.create({
           document.getElementById("checkout-form").submit();
         });
       };
-
+        session.begin();
         }
       });
     });
   });
-  session.begin();
 });
 
 </script>
