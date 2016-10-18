@@ -58,6 +58,16 @@ var errorMessage = document.querySelector('#error-message');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
+
+
+if (!window.ApplePaySession) {
+  console.error('This device does not support Apple Pay');
+}
+
+if (ApplePaySession.canMakePayments()) {
+      document.getElementById("button").style.display = "block";
+}
+
 var applePayInstance, paymentsRequest;
 
  braintree.client.create({
@@ -139,5 +149,6 @@ var applePayInstance, paymentsRequest;
      session.begin();
    });
  }
+
 </script>
 </html>
