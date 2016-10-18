@@ -58,89 +58,86 @@ var errorMessage = document.querySelector('#error-message');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
+var applePayInstance, paymentsRequest;
 
+ braintree.client.create({
+   authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
+ }, function (clientErr, clientInstance) {
+   if (clientErr) {
+     console.error('Error creating client:', clientErr);
+     return;
+   }
 
-if (!window.ApplePaySession) {
-  console.error('This device does not support Apple Pay');
-}
+   console.log('client');
 
-if (ApplePaySession.canMakePayments()) {
-      document.getElementById("button").style.display = "block";
-}
+   braintree.applePay.create({
+     client: clientInstance
+   }, function (applePayErr, applePay) {
+     if (applePayErr) {
+       console.error('Error creating applePayInstance:', applePayErr);
+       return;
+     }
+     applePayInstance = applePay;
+     console.log('aplepae');
+     ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier).then(function (canMakePaymentsWithActiveCard) {
+       if (canMakePaymentsWithActiveCard) {
+         finishApplePay();
+       }
+     });
+   });
+ });
 
-button.addEventListener('click', function (event) {
-  event.preventDefault();
+ function finishApplePay() {
+   button.addEventListener('click', function (event) {
+     event.preventDefault();
 
-braintree.client.create({
-  authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
-}, function (clientErr, clientInstance) {
-  if (clientErr) {
-    console.error('Error creating client:', clientErr);
-    return;
-  }
+     paymentRequest = applePayInstance.createPaymentRequest({
+       total: {
+         label: 'My Store',
+         amount: '19.99'
+       }
+     });
+     console.log(paymentRequest.countryCode);
+     console.log(paymentRequest.currencyCode);
+     console.log(paymentRequest.merchantCapabilities);
+     console.log(paymentRequest.supportedNetworks);
 
-  braintree.applePay.create({
-    client: clientInstance
-  }, function (applePayErr, applePayInstance) {
-    if (applePayErr) {
-      console.error('Error creating applePayInstance:', applePayErr);
-      return;
-    }
+     var session = new ApplePaySession(1, paymentRequest);
 
-    var promise = ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
-    promise.then(function (canMakePaymentsWithActiveCard) {
-      if (canMakePaymentsWithActiveCard) {
-      var paymentRequest = applePayInstance.createPaymentRequest({
-        total: {
-          label: 'My Store',
-          amount: '19.99'
-        }
-      });
-      console.log(paymentRequest.countryCode);
-      console.log(paymentRequest.currencyCode);
-      console.log(paymentRequest.merchantCapabilities);
-      console.log(paymentRequest.supportedNetworks);
+     session.onvalidatemerchant = function (event) {
+       applePayInstance.performValidation({
+         validationURL: event.validationURL,
+         displayName: 'My Store'
+       }, function (validationErr, merchantSession) {
+         if (validationErr) {
+           // You should show an error to the user, e.g. 'Apple Pay failed to load.'
+           console.error('Error validating merchant:', validationErr);
+           session.abort();
+           return;
+         }
+         session.completeMerchantValidation(merchantSession);
+       });
+     };
 
-      var session = new ApplePaySession(1, paymentRequest);
+     session.onpaymentauthorized = function (event) {
+       console.log('Your shipping address is:', event.payment.shippingContact);
 
-      session.onvalidatemerchant = function (event) {
-        applePayInstance.performValidation({
-          validationURL: event.validationURL,
-          displayName: 'My Store'
-        }, function (validationErr, merchantSession) {
-          if (validationErr) {
-            // You should show an error to the user, e.g. 'Apple Pay failed to load.'
-            console.error('Error validating merchant:', validationErr);
-            session.abort();
-            return;
-          }
-          session.completeMerchantValidation(merchantSession);
-        });
-      };
+       applePayInstance.tokenize({
+         token: event.payment.token
+       }, function (tokenizeErr, payload) {
+         if (tokenizeErr) {
+           console.error('Error tokenizing Apple Pay:', tokenizeErr);
+           session.completePayment(ApplePaySession.STATUS_FAILURE);
+           return;
+         }
+         session.completePayment(ApplePaySession.STATUS_SUCCESS);
+         alert("got a nonce");
+         // Send payload.nonce to your server.
+         document.getElementById("checkout-form").submit();
+       });
+     };
+     session.begin();
+   });
+ }
 
-      session.onpaymentauthorized = function (event) {
-        console.log('Your shipping address is:', event.payment.shippingContact);
-
-        applePayInstance.tokenize({
-          token: event.payment.token
-        }, function (tokenizeErr, payload) {
-          if (tokenizeErr) {
-            console.error('Error tokenizing Apple Pay:', tokenizeErr);
-            session.completePayment(ApplePaySession.STATUS_FAILURE);
-            return;
-          }
-          session.completePayment(ApplePaySession.STATUS_SUCCESS);
-          alert("got a nonce");
-          // Send payload.nonce to your server.
-          document.getElementById("checkout-form").submit();
-        });
-      };
-        session.begin();
-        }
-      });
-    });
-  });
-});
-
-</script>
 </html>
