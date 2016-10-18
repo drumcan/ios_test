@@ -64,9 +64,12 @@ if (!window.ApplePaySession) {
   console.error('This device does not support Apple Pay');
 }
 
-if (!ApplePaySession.canMakePayments()) {
-  console.error('This device is not capable of making Apple Pay payments');
+if (ApplePaySession.canMakePayments()) {
+      document.getElementById("button").style.display = "block";
 }
+
+button.addEventListener('click', function (event) {
+  event.preventDefault();
 
 braintree.client.create({
   authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
@@ -93,7 +96,7 @@ braintree.client.create({
     promise.then(function (canMakePaymentsWithActiveCard) {
       if (canMakePaymentsWithActiveCard) {
 
-      document.getElementById("button").style.display = "block";
+
 
       var paymentRequest = applePayInstance.createPaymentRequest({
         total: {
@@ -141,8 +144,7 @@ braintree.client.create({
         });
       };
 
-      button.addEventListener('click', function (event) {
-        event.preventDefault();
+
 
         session.begin();
        });
