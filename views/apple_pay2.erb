@@ -58,7 +58,7 @@ var errorMessage = document.querySelector('#error-message');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
-var applePay;
+
 
 
 if (!window.ApplePaySession) {
@@ -86,6 +86,7 @@ var applePay = braintree.client.create({
     }
   });
 });
+console.log(applePay);
 
 var promise = applePay.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier);
 promise.then(function (canMakePaymentsWithActiveCard) {
