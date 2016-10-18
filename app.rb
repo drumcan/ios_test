@@ -21,8 +21,8 @@ get "/apple_pay" do
   erb :apple_pay
 end
 
-get "/apple_pay2" do
-  erb :apple_pay2
+get "/.well-known/apple-developer-merchantid-domain-association" do
+  send_file File.join(settings.public_folder, 'apple-developer-merchantid-domain-association')
 end
 
 post "/ios_checkout" do
