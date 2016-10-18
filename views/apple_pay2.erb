@@ -69,7 +69,7 @@ if (ApplePaySession.canMakePayments()) {
       document.getElementById("button").style.display = "block";
 }
 
-braintree.client.create({
+var applePay = braintree.client.create({
   authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
 }, function (clientErr, clientInstance) {
   if (clientErr) {
@@ -83,7 +83,7 @@ braintree.client.create({
     if (applePayErr) {
       console.error('Error creating applePayInstance:', applePayErr);
       return;
-    } else { var applePay = applePayInstance }
+    }
   });
 });
 
