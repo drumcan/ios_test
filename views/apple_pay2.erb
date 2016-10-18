@@ -58,7 +58,7 @@ var errorMessage = document.querySelector('#error-message');
 var nonce = document.querySelector('input[name="payment_method_nonce"]');
 var submitButton = document.querySelector('input[type="submit"]');
 var button = document.querySelector('button');
-
+var applePay;
 
 
 if (!window.ApplePaySession) {
@@ -69,7 +69,7 @@ if (ApplePaySession.canMakePayments()) {
       document.getElementById("button").style.display = "block";
 }
 
-var applePay = braintree.client.create({
+braintree.client.create({
   authorization:  "sandbox_54fcdrnq_yxb4zvxjdctbbppt"
 }, function (clientErr, clientInstance) {
   if (clientErr) {
@@ -83,7 +83,7 @@ var applePay = braintree.client.create({
     if (applePayErr) {
       console.error('Error creating applePayInstance:', applePayErr);
       return;
-    }
+    } else { applePay = applePayInstance;}
   });
 });
 console.log(applePay);
