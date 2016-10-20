@@ -1,7 +1,7 @@
 <!DOCTYPE html>
  <html lang="en">
    <head>
-     <script src="https://js.braintreegateway.com/web/3.4.0/js/client.min.js"></script>
+       <script src="https://js.braintreegateway.com/web/3.4.0/js/client.min.js"></script>
      <script src="https://js.braintreegateway.com/web/3.4.0/js/apple-pay.min.js"></script>
      <script src="https://js.braintreegateway.com/web/3.4.0/js//hosted-fields.min.js"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -142,6 +142,7 @@ var applePayInstance, paymentsRequest;
          }
          session.completePayment(ApplePaySession.STATUS_SUCCESS);
          alert("got a nonce");
+         document.getElementById("payment_method_nonce").value=payload.nonce;
          // Send payload.nonce to your server.
          document.getElementById("checkout-form").submit();
        });
