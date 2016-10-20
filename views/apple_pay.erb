@@ -17,6 +17,7 @@
       <h2 class="form-signin-heading">Apple Pay for Web</h2>
       <button class="apple-pay-button apple-pay-button-white" style="display:none;" id="button"></button>
       <input type="hidden" name="payment_method_nonce"  id="payment_method_nonce" value="">
+      <button type="button" id="submit_button" disabled></button>
     </form>
   <div>
 </body>
@@ -141,11 +142,10 @@ var applePayInstance, paymentsRequest;
            return;
          }
          session.completePayment(ApplePaySession.STATUS_SUCCESS);
-         alert("got a nonce");
-         console.log(payload);
+         alert(payload);
          document.getElementById("payment_method_nonce").value=payload.nonce;
          // Send payload.nonce to your server.
-         document.getElementById("checkout-form").submit();
+         document.getElementById("submit_button").disabled = false;
        });
      };
      session.begin();
