@@ -1,0 +1,145 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 15.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+X-MS-OLK-FORCEINSPECTOROPEN:TRUE
+BEGIN:VTIMEZONE
+TZID:Eastern Standard Time
+BEGIN:STANDARD
+DTSTART:16011104T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010311T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ATTENDEE;CN="'Dan Uhle'";RSVP=TRUE:mailto:dan.uhle@braintreepayments.com
+ATTENDEE;CN="'Braintree Solutions'";RSVP=TRUE:mailto:solutions@braintreepay
+	ments.com
+ATTENDEE;CN="'George Eliopoulos'";RSVP=TRUE:mailto:george.eliopoulos@braint
+	reepayments.com
+ATTENDEE;CN="Ian Poole";RSVP=TRUE:mailto:ipoole@cardinalcommerce.com
+ATTENDEE;CN="'Slava Syrota'";RSVP=TRUE:mailto:slava.syrota@OpticsPlanet.com
+CLASS:PUBLIC
+CREATED:20161018T135538Z
+DESCRIPTION:All\,\n\nPlease join my conference bridge(in the above location
+	 field) this Friday at 10am CT and we can talk through how we’ll help Op
+	tics Planet parse transactions through Consumer Authentication. \n\nFor re
+	ference on our call\, Optics Planet classifies transactions today as follo
+	ws:\n\nTrusted – does not want to run these through Consumer Authenticat
+	ion\n\nRisky – Yes 3DS/CCA\n\nNot-enough-sales-to-classify – Yes 3DS/C
+	CA\n\nNew-to-file – Yes 3DS/CCA\n\n\nBest Regards\,\n\nJeff Dunlop \nSol
+	utions Consultant \nCardinalCommerce Corporation\n6119 Heisley Rd.\nMentor
+	\, OH 44060\nP: 440.352.8444 1207\nF: 440.352.1646\nJdunlop@cardinalcommer
+	ce.com <mailto:Jdunlop@cardinalcommerce.com> \nwww.CardinalCommerce.com <h
+	ttp://www.cardinalcommerce.com/> \n\n \n\nTHIS MESSAGE IS INTENDED ONLY FO
+	R THE USE OF THE INDIVIDUAL OR ENTITY TO WHICH IT IS ADDRESSED AND MAY CON
+	TAIN INFORMATION THAT IS PRIVILEGED\, CONFIDENTIAL\, AND EXEMPT FROM DISCL
+	OSURE UNDER APPLICABLE LAW. \n\nIf the reader of this message is not the i
+	ntended recipient\, or the employee or agent responsible for delivering th
+	e message to the intended recipient\, you are hereby notified that any dis
+	semination\, distribution\, forwarding\, or copying of this communication 
+	is strictly prohibited. If you have received this communication in error\,
+	 please notify the sender immediately by e-mail or telephone\, and delete 
+	the original message immediately. \n\nThank you.\n\n\n\n
+DTEND;TZID="Eastern Standard Time":20161021T113000
+DTSTAMP:20161018T135538Z
+DTSTART;TZID="Eastern Standard Time":20161021T110000
+LAST-MODIFIED:20161018T135540Z
+LOCATION:Conferecne Bridge 1-866-315-1586   PIN 702-785-9572#
+ORGANIZER;CN=jdunlop@cardinalcommerce.com:mailto:jdunlop@cardinalcommerce.c
+	om
+PRIORITY:5
+SEQUENCE:0
+SUMMARY;LANGUAGE=en-us:Optics Planet - CardinalCommerce/Braintree CCA Rules
+	 Engine Meeting 
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000F05B3A202529D201000000000000000
+	0100000009AE97284580BD149A6873598CE91D7AE
+X-ALT-DESC;FMTTYPE=text/html:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//E
+	N">\n<HTML>\n<HEAD>\n<META NAME="Generator" CONTENT="MS Exchange Server ve
+	rsion rmj.rmm.rup.rpr">\n<TITLE></TITLE>\n</HEAD>\n<BODY>\n<!-- Converted 
+	from text/rtf format -->\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="Cali
+	bri">All\,</FONT></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="
+	Calibri">Please join my conference bridge(in the above location field) thi
+	s Friday at 10am CT and we can talk through how we’ll help Optics Planet
+	 parse transactions through Consumer Authentication. </FONT></SPAN></P>\n\
+	n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="Calibri">For reference on our c
+	all\, Optics Planet classifies transactions today as follows:</FONT></SPAN
+	></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><B><FONT FACE="Calibri">Trusted</FO
+	NT></B></SPAN><SPAN LANG="en-us"><B><FONT FACE="Calibri"> – does not wan
+	t to run these through Consumer Authentication</FONT></B></SPAN><SPAN LANG
+	="en-us"><B></B></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN></P>\n
+	\n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="Calibri">Risky – Yes 3DS/CCA
+	</FONT></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT FACE="Calibri">N
+	ot-enough-sales-to-classify – Yes 3DS/CCA</FONT></SPAN></P>\n\n<P DIR=LT
+	R><SPAN LANG="en-us"><FONT FACE="Calibri">New-to-file – Yes 3DS/CCA</FON
+	T></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><
+	SPAN LANG="en-us"><B></B></SPAN><SPAN LANG="en-us"><B></B></SPAN><SPAN LAN
+	G="en-us"><B></B></SPAN><B><SPAN LANG="en-us"><FONT COLOR="#222222" SIZE=2
+	 FACE="Arial">Best Regards\,</FONT></SPAN></B></P>\n\n<P DIR=LTR><B><SPAN 
+	LANG="en-us"><FONT COLOR="#222222" SIZE=2 FACE="Arial">Jeff Dunlop </FONT
+	></SPAN></B><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG
+	="en-us"></SPAN><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="e
+	n-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LAN
+	G="en-us"><FONT COLOR="#222222" SIZE=2 FACE="Arial">Solutions Consultant <
+	/FONT></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><SPAN LANG="en-u
+	s"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"><FONT COLOR="#FF000
+	0" SIZE=2 FACE="Arial">CardinalCommerce Corporation</FONT></SPAN><SPAN LAN
+	G="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN
+	 LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT COLOR="#2
+	22222" SIZE=2 FACE="Arial">6119 Heisley Rd.</FONT></SPAN></P>\n\n<P DIR=LT
+	R><SPAN LANG="en-us"><FONT COLOR="#222222" SIZE=2 FACE="Arial">Mentor\, OH
+	 44060</FONT></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"><FONT COLOR="#22
+	2222" SIZE=2 FACE="Arial">P: 440.352.8444 1207</FONT></SPAN></P>\n\n<P DI
+	R=LTR><SPAN LANG="en-us"><FONT COLOR="#222222" SIZE=2 FACE="Arial">F: 440
+	.352.1646</FONT></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HRE
+	F="mailto:Jdunlop@cardinalcommerce.com"><SPAN LANG="en-us"></SPAN><SPAN LA
+	NG="en-us"></SPAN><SPAN LANG="en-us"><U></U></SPAN><U><SPAN LANG="en-us"><
+	FONT COLOR="#1155CC" SIZE=2 FACE="Arial">Jdunlop@cardinalcommerce.com</FON
+	T></SPAN></U><SPAN LANG="en-us"></SPAN></A><SPAN LANG="en-us"></SPAN><SPAN
+	 LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><
+	/P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><A HREF="http://www.cardinalco
+	mmerce.com/"><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LAN
+	G="en-us"><U></U></SPAN><U><SPAN LANG="en-us"><FONT COLOR="#1155CC" SIZE=2
+	 FACE="Arial">www.CardinalCommerce.com</FONT></SPAN></U><SPAN LANG="en-us"
+	></SPAN></A><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG
+	="en-us"></SPAN><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="e
+	n-us"></SPAN><SPAN LANG="en-us"><FONT FACE="Calibri"></FONT></SPAN><SPAN L
+	ANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SP
+	AN LANG="en-us"></SPAN><SPAN LANG="en-us">&nbsp\;</SPAN></P>\n\n<P DIR=LTR
+	><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></
+	SPAN><SPAN LANG="en-us"><FONT COLOR="#222222" SIZE=2 FACE="Arial">THIS MES
+	SAGE IS INTENDED ONLY FOR THE USE OF THE INDIVIDUAL OR ENTITY TO WHICH IT 
+	IS ADDRESSED AND MAY CONTAIN INFORMATION THAT IS PRIVILEGED\, CONFIDENTIAL
+	\, AND EXEMPT FROM DISCLOSURE UNDER APPLICABLE LAW. <BR>\n<BR>\nIf the re
+	ader of this message is not the intended recipient\, or the employee or ag
+	ent responsible for delivering the message to the intended recipient\, you
+	 are hereby notified that any dissemination\, distribution\, forwarding\, 
+	or copying of this communication is strictly prohibited. If you have recei
+	ved this communication in error\, please notify the sender immediately by 
+	e-mail or telephone\, and delete the original message immediately. <BR>\n
+	<BR>\nThank you.</FONT></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"
+	></SPAN><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR
+	=LTR><SPAN LANG="en-us"></SPAN><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR=LT
+	R><SPAN LANG="en-us"></SPAN></P>\n\n<P DIR=LTR><SPAN LANG="en-us"></SPAN><
+	/P>\n\n</BODY>\n</HTML>
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MS-OLK-AUTOSTARTCHECK:FALSE
+X-MS-OLK-CONFTYPE:0
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

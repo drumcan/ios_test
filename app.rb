@@ -17,6 +17,10 @@ get "/" do
   erb :index
 end
 
+get "/client_token" do
+  @client_token = Braintree::ClientToken.generate(:merchant_account_id => "threeds")
+end
+
 get "/apple_pay" do
   erb :apple_pay
 end

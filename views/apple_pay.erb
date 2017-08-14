@@ -41,7 +41,7 @@
 }
 
 .apple-pay-button-white {
-    background-image: -webkit-named-image(apple-pay-logo-black);
+    background-image: -webkit-named-image(apple-pay-logo-black);vier9
     background-color: white;
 }
 
@@ -88,10 +88,12 @@ var applePayInstance, paymentsRequest;
        return;
      }
      applePayInstance = applePay;
-     console.log('aplepae');
+     console.log('applepay instance');
      ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier).then(function (canMakePaymentsWithActiveCard) {
        if (canMakePaymentsWithActiveCard) {
          finishApplePay();
+       } else {
+         console.log("cannot make payments with active cards");
        }
      });
    });
