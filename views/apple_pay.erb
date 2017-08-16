@@ -88,6 +88,7 @@ var applePayInstance, paymentsRequest;
        return;
      }
      applePayInstance = applePay;
+     console.log(applePayInstance.merchantIdentifier);
      console.log('applepay instance');
      ApplePaySession.canMakePaymentsWithActiveCard(applePayInstance.merchantIdentifier).then(function (canMakePaymentsWithActiveCard) {
        if (canMakePaymentsWithActiveCard) {
